@@ -1,0 +1,6 @@
+# Server Loging Configuration Starts
+    LOG_DIR = LOGS
+    CLEAR_LOGS = false
+    SET_JSON = true
+    LOG_TO_CONSOLE = true
+# Server Loging Configuration Ends

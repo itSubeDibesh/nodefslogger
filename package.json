@@ -1,0 +1,18 @@
+{
+	"name": "logger",
+	"version": "1.0.0",
+	"description": "A custome JavaScript Logger using node fs module",
+	"main": "./Core/Logger.js",
+	"keywords": [
+		"Logger",
+		"Node",
+		"Fs",
+		"Node Logger"
+	],
+	"author": "Dibesh Raj Subedi <dibeshrsubedi@gmail.com> (github.com/itsubedibesh)",
+	"license": "MIT",
+	"dependencies": {
+		"dotenv": "^8.2.0",
+		"moment": "^2.29.1"
+	}
+}
