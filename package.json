@@ -1,13 +1,13 @@
 {
-	"name": "logger",
-	"version": "1.0.0",
+	"name": "nodefslogger",
+	"version": "0.0.1",
 	"description": "A custome JavaScript Logger using node fs module",
 	"main": "./Core/Logger.js",
 	"keywords": [
-		"Logger",
+		"nodefslogger",
 		"Node",
 		"Fs",
-		"Node Logger"
+		"Logger"
 	],
 	"author": "Dibesh Raj Subedi <dibeshrsubedi@gmail.com> (github.com/itsubedibesh)",
 	"homepage": "https://github.com/itSubeDibesh/Logger",

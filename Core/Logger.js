@@ -126,11 +126,9 @@ const
     file_extension = () => Set_Json ? '.json' : '.log';
 
 /**
- * Logger Core Class - @version 1
+ * Logger Core Class - @version 0.0.1
  * 
  * Made with ❤️ by Dibesh Raj Subedi
- * 
- * Contributors : 
  * 
  * Creates a logs and saves on file
  */
