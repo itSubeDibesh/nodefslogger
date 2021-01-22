@@ -2,7 +2,6 @@
 require('dotenv').config();
 const
     fs = require('fs'),
-    moment = require('moment'),
     { SET_JSON, LOG_TO_CONSOLE, CLEAR_LOGS, LOG_DIR } = process.env,
 
     /**
@@ -38,7 +37,7 @@ const
      */
     create_json_File = (file_name, file_with_dir, message, callback) => {
         let Json_log = { Logs: [] };
-        Json_log.Logs.push({ Log_Type: file_name, Date: moment(), Message: message });
+        Json_log.Logs.push({ Log_Type: file_name, Date: Date(), Message: message });
         fs.writeFile(process.cwd() + file_with_dir, JSON.stringify(Json_log), "utf8", (error) => !error ? callback({ result: true, message: 'File Created successfully' }) : callback({ result: false, message: 'Error occured', error }))
     },
 
@@ -55,7 +54,7 @@ const
             else {
                 if (data.length != 0) {
                     data = JSON.parse(data);
-                    data.Logs.push({ Log_Type: file_name, Date: moment(), Message: message });
+                    data.Logs.push({ Log_Type: file_name, Date: Date(), Message: message });
                     fs.writeFile(process.cwd() + file_with_dir, JSON.stringify(data), "utf8", (error) => !error ? callback({ result: true, message: 'Data append successfully' }) : callback({ result: false, message: 'Error occured', error }));
                 } else create_json_File(file_name, file_with_dir, message, callback);
             }
@@ -76,7 +75,7 @@ const
     * @param {string} message -> message to append
     * @param {function} callback -> sends result as object using callback function
     */
-    create_log_File = (file_name, file_with_dir, message, callback) => fs.writeFile(process.cwd() + file_with_dir, `${file_name} LOG : ${moment()} ${message} \n`, (error) => !error ? callback({ result: true, message: 'File Created successfully' }) : callback({ result: false, message: 'Error occured', error })),
+    create_log_File = (file_name, file_with_dir, message, callback) => fs.writeFile(process.cwd() + file_with_dir, `${file_name} LOG : ${Date()} ${message} \n`, (error) => !error ? callback({ result: true, message: 'File Created successfully' }) : callback({ result: false, message: 'Error occured', error })),
 
     /**
      * Appends data to .log file
@@ -85,7 +84,7 @@ const
      * @param {string} message -> message to append
      * @param {function} callback -> sends result as object using callback function
      */
-    append_to_log_file = (file_name, file_with_dir, message, callback) => fs.appendFile(process.cwd() + file_with_dir, `${file_name} LOG : ${moment()} ${message} \n`, (error) => !error ? callback({ result: true, message: 'Data append successfully' }) : callback({ result: false, message: 'Error occured', error })),
+    append_to_log_file = (file_name, file_with_dir, message, callback) => fs.appendFile(process.cwd() + file_with_dir, `${file_name} LOG : ${Date()} ${message} \n`, (error) => !error ? callback({ result: true, message: 'Data append successfully' }) : callback({ result: false, message: 'Error occured', error })),
 
     /**
      * Clears out the .log file
@@ -195,7 +194,7 @@ module.exports = class Logger_Core {
 
                 // Checks If log to console is true
                 if (Log_To_Console)
-                    console.log(`${this.file_name.toUpperCase()} LOG : ${moment()} ${messag}`);
+                    console.log(`${this.file_name.toUpperCase()} LOG : ${Date()} ${messag}`);
             });
         });
     }
