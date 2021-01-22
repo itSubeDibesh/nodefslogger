@@ -38,13 +38,13 @@ ___nodefslogger___ will export a logger module which can be stored on a constant
 
 Here `Debug, Error, Access and Query` are the different categories of logs so every category has its owne instance and then exported from file so that we can require this logger file to keep our logs.
 
-Now when we need to keep our access log we will require Error from the file and create new variable and pass `Error()` function. After that we will ask the variable to log datas using `.log()` and pass our log message inside the parenthesis as below.
+Now when we need to keep our error log we will require Error from the file. After that we will ask the Error to log datas using `.log()` and pass our log message inside the parenthesis as below.
 
 `````
-const { Error } = require('./Logger/Log'),error = Error();
+const { Error } = require('./Logger/Log');
 
-error.log("Made First Log")
-error.log("Another Log here")
+Error.log("Made First Log")
+Error.log("Another Log here")
 `````
 
 This will append the logged data on `Error.log` or `Error.json` as per your environment variable.
