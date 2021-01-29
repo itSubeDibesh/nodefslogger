@@ -1,8 +1,7 @@
 // Initialize Environment Variable
 require('dotenv').config();
 const
-    fs = require('fs'),
-    { SET_JSON, LOG_TO_CONSOLE, CLEAR_LOGS, LOG_DIR } = process.env,
+    fs = require('fs'), { SET_JSON, LOG_TO_CONSOLE, CLEAR_LOGS, LOG_DIR } = process.env,
 
     /**
      * Converts string to bolean if value is true 
@@ -10,9 +9,7 @@ const
      */
     string_to_boolean = (arg) => arg.toLocaleLowerCase() == 'true',
 
-    Set_Json = string_to_boolean(SET_JSON),
-    Clear_Logs = string_to_boolean(CLEAR_LOGS),
-    Log_To_Console = string_to_boolean(LOG_TO_CONSOLE),
+    Set_Json = string_to_boolean(SET_JSON), Clear_Logs = string_to_boolean(CLEAR_LOGS), Log_To_Console = string_to_boolean(LOG_TO_CONSOLE),
 
     /**
     * Checks if the file or directory exists
@@ -35,11 +32,7 @@ const
      * @param {string} message -> message to append
      * @param {function} callback -> sends result as object using callback function
      */
-    create_json_File = (file_name, file_with_dir, message, callback) => {
-        let Json_log = { Logs: [] };
-        Json_log.Logs.push({ Log_Type: file_name, Date: Date(), Message: message });
-        fs.writeFile(process.cwd() + file_with_dir, JSON.stringify(Json_log), "utf8", (error) => !error ? callback({ result: true, message: 'File Created successfully' }) : callback({ result: false, message: 'Error occured', error }))
-    },
+    create_json_File = (file_name, file_with_dir, message, callback) => { let Json_log = { Logs: [] }; Json_log.Logs.push({ Log_Type: file_name, Date: Date(), Message: message }), fs.writeFile(process.cwd() + file_with_dir, JSON.stringify(Json_log, null, 2), "utf8", error => callback(error ? { result: !1, message: "Error occured", error: error } : { result: !0, message: "File Created successfully" })) },
 
     /**
      * Appends data to .json file
@@ -48,18 +41,7 @@ const
      * @param {string} message -> message to append
      * @param {function} callback -> sends result as object using callback function
      */
-    append_to_json_file = (file_name, file_with_dir, message, callback) => {
-        fs.readFile(process.cwd() + file_with_dir, "utf8", (err, data) => {
-            if (err) console_error(err);
-            else {
-                if (data.length != 0) {
-                    data = JSON.parse(data);
-                    data.Logs.push({ Log_Type: file_name, Date: Date(), Message: message });
-                    fs.writeFile(process.cwd() + file_with_dir, JSON.stringify(data), "utf8", (error) => !error ? callback({ result: true, message: 'Data append successfully' }) : callback({ result: false, message: 'Error occured', error }));
-                } else create_json_File(file_name, file_with_dir, message, callback);
-            }
-        })
-    },
+    append_to_json_file = (file_name, file_with_dir, message, callback) => fs.readFile(process.cwd() + file_with_dir, "utf8", (err, data) => { if (err) console_error(err); else if (0 != data.length) try { let dataSet = JSON.parse(data); dataSet.Logs.push({ Log_Type: file_name, Date: Date(), Message: message }), fs.writeFileSync(process.cwd() + file_with_dir, JSON.stringify(dataSet, null, 2), "utf8", error => callback(error ? { result: !1, message: "Error occured", error: error } : { result: !0, message: "Data append successfully" })) } catch { } else create_json_File(file_name, file_with_dir, message, callback) }),
 
     /**
      * Clears out the .json file
@@ -97,10 +79,7 @@ const
      * Logs out error
      * @param {object} response 
      */
-    console_error = (response) => {
-        console.log(response.error);
-        console.error(response.error);
-    },
+    console_error = response => { console.log(response.error), console.error(response.error) },
 
     /**
      * Appends to .log file
@@ -149,10 +128,7 @@ module.exports = class Logger_Core {
      * @param {boolean} clear -> default false 
      */
     clear(show = false) {
-        if (!Set_Json)
-            clear_log_data(this.file, (response) => { if (show) if (response.result) console.log(response.message); });
-        else
-            clear_json_data(this.file, (response) => { if (show) if (response.result) console.log(response.message); });
+        Set_Json ? clear_json_data(this.file, response => { show && response.result && console.log(response.message) }) : clear_log_data(this.file, response => { show && response.result && console.log(response.message) });
     }
 
     /**
@@ -206,14 +182,7 @@ module.exports = class Logger_Core {
     get_json(callback) {
         if (!Set_Json) return callback({ result: !1, response: 'SET_JSON is not enabled on Environment!' });
         else {
-            fs.readFile(process.cwd() + this.file, 'utf8', (err, data) => {
-                if (err) console.error(err);
-                else {
-                    if (data.length != 0)
-                        return callback({ result: !0, response: data })
-                }
-            });
+            fs.readFile(process.cwd() + this.file, "utf8", (err, data) => { if (err) console.error(err); else if (0 != data.length) return callback({ result: !0, response: data }) });
         }
     }
-
 }

@@ -51,3 +51,9 @@ This will append the logged data on `Error.log` or `Error.json` as per your envi
 
 ## Warning 
 Dont use `nodemon` while your `.env` file has  `SET_JSON = true` as nodemon monitors any changes in json file as well your server would restart time and again the `json` file is updated.
+
+## ToDO
+- Log in Different File After The Size Exceeds Certain Threashold
+- Get All Logs from Different Files in Get_Json function
+- Auto Generate .env file at ackage installation
+- Propper Github documentation and application documentation as well

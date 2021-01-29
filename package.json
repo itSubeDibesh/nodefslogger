@@ -1,6 +1,6 @@
 {
 	"name": "nodefslogger",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "A custome JavaScript Logger using node fs module",
 	"main": "./Core/Logger.js",
 	"keywords": [
